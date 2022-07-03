@@ -1,0 +1,14 @@
+image: alpine:latest
+
+pages:
+  script:
+    - apk add --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ zola
+    - zola build
+    - find public -type f -regex '.*\.\(htm\|html\|txt\|text\|js\|css\)$' -exec brotli -f -k {} \;
+  
+  artifacts:
+    paths:
+      - public
+  
+  only:
+    - master
