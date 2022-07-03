@@ -1,0 +1,41 @@
+.sidenote {
+    float: right;
+    margin-right: -10em;
+    width: 9em;
+    position: relative;
+    display: block;
+    color: $foreground-1;
+    text-align: left;
+    top: 3pt;
+}
+
+.sidenote-anchor > span {
+    display: reset;
+    font-size: 10pt;
+    vertical-align: super;
+    font-family: "Newsreader 8pt";
+}
+
+.sidenote::before {
+    content: attr(data-sidenote-counter);
+    position: absolute;
+    left: -0.5rem;
+    font-size: 10pt;
+    font-family: "Newsreader 8pt";
+    top: -3pt;
+    z-index: 2;
+}
+
+.sidenote.dagger::before {
+    content: '†';
+    position: absolute;
+    left: -0.3em;
+    top: 0;
+}
+
+.sidenote.ddagger::before {
+    content: '‡';
+    position: absolute;
+    left: -0.3em;
+    top: 0;
+}

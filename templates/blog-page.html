@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block content %}
+<h1 class="title">
+  {{ page.title }}
+</h1>
+<span class="date">{{ page.date }}{% if page.updated %}, updated {{ page.updated }}{% endif %}</span><br>
+{% if page.taxonomies.tags %}<span class="tags"> in 
+  {% for tag in page.taxonomies.tags %}
+      <a class="tag" href="{{ get_taxonomy_url(kind="tags", name=tag) | safe }}">{{ tag }}</a>
+  {% endfor %}
+</span>{% endif %}
+<article>
+{{ page.content | safe }}
+</article>
+{% endblock content %}

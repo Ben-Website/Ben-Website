@@ -1,0 +1,55 @@
+@media (max-width: 1024px) {
+    main {
+        max-width: calc(100% - 30px);
+
+        p, pre {
+            margin-right: 20px;
+        }
+    }
+
+    h1::before, h2::before, h3::before {
+        left: -0.5em;
+    }
+
+    footer {
+        width: calc(100% - 2rem);
+        max-width: 100%;
+        left: 1rem;
+    }
+
+    .sidenote {
+        margin-right: -9.5rem;
+
+        &::before {
+            left: -0.3rem;
+        }
+    }
+
+    .sidenote-inner {
+        background-color: var(--background-1);
+
+        position: relative;
+        margin-left: 0;
+
+        padding: 3pt;
+        transition: margin-left 250ms;
+        width: 100%;
+        display: block;
+
+        &:hover {
+            margin-left: -8rem;
+            z-index: 3;
+        }
+    }
+
+    .roll-result {
+        width: 3rem;
+        margin-left: -3.25rem;
+
+        transition: margin-left 250ms;
+    }
+
+    div.table-wrapper {
+        margin-right: unset;
+    }
+}

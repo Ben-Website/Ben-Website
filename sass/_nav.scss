@@ -1,0 +1,37 @@
+@import 'variables.scss';
+
+#page-nav {
+    font-size: 14pt;
+    height: 2rem;
+    line-height: 2rem;
+    #page-nav-inner {
+        width: 100%;
+        margin: auto;
+        max-width: 10rem;
+        display: flex;
+        // border-radius: 3px;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+        background-color: $background-1;
+        padding: 0 0.4rem;
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+
+        a {
+            margin: 0.1em 0.2em;
+            font-variant: unset;
+
+            border-bottom: 1px solid rgba(0, 0, 0, 0);
+            transition: border-color 0.2s;
+
+            &:hover {
+                color: rgb(225,255,225);
+                border-bottom-color: rgba(225,255,225,100%);
+                transition: border-color 0.2s;
+            }
+        }
+
+        .stretch {
+            flex-grow: 1;
+        }
+    }
+}

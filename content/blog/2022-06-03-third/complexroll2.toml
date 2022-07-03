@@ -1,0 +1,8 @@
+name = "Complex 2"
+die = 6
+resultname = "Do"
+
+results = [
+    { on = [1, 3, 5], result = "Brief description" },
+    { on = [2, 4, 6], result = "Another description" },
+]

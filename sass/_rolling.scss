@@ -1,0 +1,156 @@
+@import 'variables';
+
+
+.rollme {
+    @include contrasted();
+
+    cursor: pointer;
+    transition: background-color $animation-default;
+
+    &:hover {
+        background-color: $highlight-rollable;
+        transition: background-color $animation-default;
+    }
+}
+
+.roll-result {
+    font-family: $semimono-font, serif;
+    font-size: 11pt;
+
+    float: left;
+    margin-left: -5.5rem;
+    width: 5rem;
+    margin-top: 1.3pt;
+
+    position: relative;
+    display: inline;
+    color: $background-0;
+    text-align: right;
+
+    transition: color $animation-roll-result;
+}
+
+.roll-result.active {
+    color: $foreground-1;
+}
+
+footer {
+    width: 100%;
+    max-width: 50rem;
+    background-color: $background-1;
+    position: fixed;
+    bottom: 0;
+    left: calc(50% - 25rem);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    text-align: center;
+
+
+    button {
+        margin: 3pt;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        @include contrasted();
+    }
+
+    #toggle-button {
+        margin-top: 6px;
+        margin-bottom: 6px;
+    }
+
+    > #toolbox {
+        max-height: 0px;
+        height: 100%;
+        overflow-y: hidden;
+
+        transition: max-height $animation-toolbox;
+    } 
+}
+
+#toolbox-roll-results {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+
+    td {
+        border: none;
+        background-color: unset;
+    }
+
+    tr > td:first-child {
+        text-align: right;
+    }
+
+    tr > td:last-child {
+        text-align: left;
+        font-family: $semimono-font, monospace;
+        font-size: 12pt;
+        vertical-align: 1pt;
+    }
+}
+
+svg.die {
+    cursor: pointer;
+
+    > circle.circumscribing-circle {
+        stroke: $foreground-1;
+        r: 50px;
+        transition: r 150ms;
+    }
+
+    > circle.cc-1, > circle.cc-2, > circle.cc-3, > circle.cc-4 {
+        stroke: $background-1;
+        transition: r 150ms, stroke 150ms;
+    }
+
+    > .die-facet {
+        stroke: $foreground-0;
+        stroke-width: 2pt;
+        fill: none;
+    }
+
+    > .die-facet-comp {
+        stroke: $foreground-2;
+        stroke-width: 1pt;
+        fill: none;
+    }
+
+    > text {
+        fill: $foreground-0;
+        stroke: none;
+        font-size: 24pt;
+        font-family: $mono-font, monospace;
+        text-anchor: middle;
+        dominant-baseline: middle;
+        transition: fill 200ms;
+        user-select: none;
+    }
+
+    &:hover {
+        > text {
+            fill: $highlight-rollable;
+        }
+
+        > circle.cc-1, > circle.cc-2, > circle.cc-3, > circle.cc-4 {
+            stroke: $foreground-1;
+        }
+
+        > circle.cc-1 {
+            r: 52px;
+        }
+
+        > circle.cc-2 {
+            r: 54px;
+        }
+
+        > circle.cc-3 {
+            r: 58px;
+        }
+
+        > circle.cc-4 {
+            r: 66px;
+        }
+    }
+}

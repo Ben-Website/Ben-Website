@@ -1,0 +1,1 @@
+<span class="sidenote-anchor">{% if symbol %}{% if symbol == "dagger" %}†{% elif symbol == "ddagger"  %}‡{% endif %}{% else %}<span>{{ nth }}</span>{% endif %}</span><span {% if symbol %}class="sidenote {{ symbol }}"{% else %}class="sidenote" data-sidenote-counter="{{ nth }}"{% endif %}><span class="sidenote-inner">{{ body | markdown(inline=true) | safe }}</span></span>

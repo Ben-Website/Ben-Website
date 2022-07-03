@@ -1,0 +1,29 @@
+# The URL the site will be built for
+base_url = "https://example.com"
+
+title = "Site Title Here"
+
+description = "Short description here."
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = true
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = true
+
+taxonomies = [
+    { name = "tags" },
+]
+
+external_links_target_blank = true
+minify_html = true
+
+[markdown]
+highlight_code = false
+smart_punctuation = true
+
+[extra]
+default_keywords = [
+    "Tabletop", "Role playing game", "RPG", "TTRPG", "Dice"
+]
+author = "Ben Lickerman"

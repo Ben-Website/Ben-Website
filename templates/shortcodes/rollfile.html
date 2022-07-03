@@ -1,0 +1,43 @@
+{% set data = load_data(path=file) %}
+{% set id = data.name | slugify %}
+{% set id = "rollfile-" ~ id ~ "-" ~ nth %}
+
+<div class="table-wrapper roll-table-wrapper" data-rollable="true" data-roll-kind="table" data-roll-name="{{ data.name }}" id="rollfile-{{ data.name | slugify }}-{{ nth }}" data-roll-die="{{ data.die }}" data-roll-number="1">
+    <div style="text-align: center;"><button class="rollme" onclick="roll('{{ id }}')">1d{{ data.die }}</button></div>
+    <table class="d{{ data.die }}">
+        <thead>
+            <tr>
+                <th> On </th>
+                <th> {% if data.resultname %}{{ data.resultname }}{% else %}Result{% endif %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in data.results %}
+                {% if result.on is number %}
+                <tr>
+                    <td class="rt" data-roll-on="{{ result.on }}"> {{ result.on }} </td>
+                    <td data-roll-result="{{ result.on }}"> {{ result.result | markdown | safe }} </td>
+                </tr>
+                {% elif result.on is object %}
+                    {% for roll in range(start=result.on.start, end=result.on.end+1) %}
+                        {% if loop.first %}
+                            <tr>
+                                <td class="rt" data-roll-on="{{ roll }}"> {{ result.on.start }} </td>
+                                <td rowspan="{{ result.on.end - result.on.start + 1 }}" data-roll-result="{{ result.on | json_encode }}"> {{ result.result | markdown | safe }} </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td class="rt" data-roll-on="{{ roll }}"> {{ roll }} </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td class="rt" data-roll-on="{{ result.on | json_encode }}">{% for r in result.on %}{{ r }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+                        <td data-roll-result="{{ result.on | json_encode }}">{{ result.result | markdown | safe }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

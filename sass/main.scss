@@ -1,0 +1,250 @@
+@import 'fonts';
+@import 'variables';
+@import 'headers';
+@import 'rolling';
+@import 'nav';
+@import 'sidenotes';
+@import 'tables';
+
+
+:root {
+    font-size: 14pt;
+    font-weight: 400;
+
+    hyphens: auto;
+
+    color-scheme: dark;
+}
+
+body {
+    margin: 0;
+    font-family: $body-font, serif;
+
+    background-color: $background-0;
+    color: $foreground-0;
+
+    overflow-x: hidden;
+}
+
+main {
+    margin: 0;
+    font-family: $body-font, serif;
+
+    background-color: $background-0;
+    color: $foreground-0;
+
+    width: calc(100% - 40px);
+    max-width: 50rem;
+    margin: auto;
+    margin-bottom: 2rem;
+    position: relative;
+    margin-top: 0.5rem;
+    margin-bottom: calc(300px + 3em);
+
+    line-height: 1.25;
+
+    a {
+        font-family: $semimono-font, serif;
+        font-size: 11pt;
+        display: inline-block;
+        background-color: $background-link;
+        border-radius: 1pt;
+        padding: 1.5pt;
+        padding-bottom: 1pt;
+        margin: -1pt;
+        transition: background-color $animation-default;
+
+        &:hover {
+            background-color: $highlight-bg-link;
+        }
+    }
+}
+
+.term, dt {
+    @include contrasted();
+}
+
+p {
+    margin-right: 10rem;
+    position: relative;
+    text-align: justify;
+    hyphens: auto;
+
+    @include default-spaced();
+}
+
+code, pre {
+    font-size: 11pt;
+    letter-spacing: .5px;
+    padding: 0;
+}
+
+pre {
+    overflow-x: scroll;
+    margin-right: 10rem;
+    line-height: 1;
+    height: auto;
+    overflow-y: hidden;
+
+    @include default-spaced();
+}
+
+a {
+    text-decoration: none;
+    color: $foreground-0;
+}
+
+ul, ol {
+    padding-left: 0;
+    margin-right: 10rem;
+
+    ul, ol {
+        padding-left: 1.5em;
+    }
+}
+
+main > ul, main > ol {
+    @include default-spaced();
+}
+
+ul {
+    list-style-type: none;
+
+    > li {
+        position: relative;
+    }
+
+    > li::before {
+        content: '⟩';
+        display: inline-block;
+        position: absolute;
+        left: -2ex;
+        width: 1em;
+        color: $foreground-1;
+    }
+
+    ul > li::before {
+        content: '》';
+    }
+
+    ul ul > li::before {
+        content: '⦒';
+    }
+}
+
+ol {
+    counter-reset: item;
+
+    > li {
+        list-style-type: none;
+        counter-increment: item;
+        position: relative;
+    }
+
+    > li::before {
+        display: inline-block;
+        position: absolute;
+        left: -3.2ex;
+        width: 1em;
+        text-align: right;
+        color: $foreground-1;
+        content: counter(item) ".";
+    }
+}
+
+blockquote, div.admonition {
+    margin-left: -0.5em;
+    padding-left: 0.5em;
+
+    padding-top: 1ex;
+    padding-bottom: 1ex;
+
+    border-left: 1px solid $foreground-0;
+    border-radius: 3px;
+    position: relative;
+
+    width: 100%;
+
+    :first-child {
+        margin-top: 0;
+    }
+
+    :last-child {
+        margin-bottom: 0;
+    }
+
+    ul, ol {
+        padding-left: 2ex;
+    }
+
+    @include default-spaced();
+}
+
+blockquote {
+    border-left-color: $highlight-quote;
+
+    &::before {
+        content: '“';
+        font-size: larger;
+        position: absolute;
+        top: -0.5em;
+        left: -0.7em;
+    }
+}
+
+div.admonition.alert {
+    border-left-color: $highlight-alert;
+
+    &::before {
+        content: '!';
+        font-size: larger;
+        position: absolute;
+        top: -0.5em;
+        left: -0.7em;
+    }
+}
+
+.date {
+    color: $foreground-1;
+    font-family: $semimono-font, serif;
+
+    .updated {
+        color: $foreground-2;
+    }
+}
+
+.tags {
+    color: $foreground-1;
+}
+
+.blog-listing {
+    font-family: $semimono-font, serif;
+
+    margin-top: 2em;
+
+    a.title-link {
+        font-size: larger;
+        background-color: rgb(0, 0, 0);
+    }
+
+    > .summary {
+        width: 100%;
+        font-family: $body-font, serif;
+        color: $foreground-1;
+        position: relative;
+
+        > p {
+            width: 100%;
+        }
+    }
+
+    > .ellipsis-link {
+        line-height: 0.5;
+    }
+
+    > p.description {
+        font-family: $body-font, serif;
+        margin-top: 0.2rem;
+        color: $foreground-1;
+    }
+}

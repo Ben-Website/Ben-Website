@@ -1,0 +1,5 @@
+<div class="table-wrapper">
+    <table {% if class %} class="{{ class }}"{% endif %}>
+        {{ body | markdown | safe }}
+    </table>
+</div>

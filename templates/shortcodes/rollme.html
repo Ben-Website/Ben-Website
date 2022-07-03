@@ -1,0 +1,7 @@
+{% if name %}{% set id = name | slugify %}{% else %}{% set id = "" %}{% set name = "(" ~ nth ~ ")" %}{% endif %}
+{% set id = "rollme-" ~ id ~ "-" ~ nth %}
+{% if fn %}
+<button data-rollable="true" data-roll-name="{{ name }}" data-roll-kind="simple" id="{{ id }}" onclick="roll('{{ id }}')" class="rollme" data-roll-number="{% if number %}{{ number }}{% else %}1{% endif %}" data-roll-die="{{ die }}" data-roll-function="{{ fn }}">({{ fn }} {% if number %}{{ number }}{% endif %}d{{ die }})</button><span class="roll-result" id="result-for-{{ id }}">&nbsp;</span>
+{% else %}
+<button data-rollable="true" data-roll-name="{{ name }}" data-roll-kind="simple" id="{{ id }}" onclick="roll('{{ id }}')" class="rollme" data-roll-number="{% if number %}{{ number }}{% else %}1{% endif %}" data-roll-die="{{ die }}" data-roll-function="identity">{% if number %}{{ number }}{% endif %}d{{ die }}</button><span class="roll-result" id="result-for-{{ id }}">&nbsp;</span>
+{% endif %}

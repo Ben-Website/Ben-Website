@@ -1,0 +1,16 @@
+{# For lists of blogposts #}
+
+{% macro bloglisting(page) %}
+<div class="blog-listing">
+    <span class="date">{{ page.date }}{% if page.updated %}<span class="updated">, updated {{ page.updated }}</span>{% endif %}</span><br>
+    <a class="title-link" href="{{ page.permalink | safe }}">{{ page.title }}</a>
+    {% if page.taxonomies.tags %}<span class="tags"> in 
+        {% for tag in page.taxonomies.tags %}
+            <a class="tag" href="{{ get_taxonomy_url(kind="tags", name=tag) | safe }}">{{ tag }}</a>
+        {% endfor %}
+    </span>{% endif %}
+    {% if page.description %}
+    <p class="description"><span class="inner-description">{{ page.description }}</span></p>
+    {% endif %}
+</div>
+{% endmacro bloglisting %}

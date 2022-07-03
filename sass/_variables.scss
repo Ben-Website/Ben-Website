@@ -1,0 +1,48 @@
+$body-font: "Newsreader 16pt";
+$semimono-font: "Iosevka Etoile Web";
+$mono-font: "Iosevka Web";
+
+$animation-default: 200ms;
+$animation-roll-result: 150ms; // make sure this is consistent with the values in rolling.js
+$animation-toolbox: 300ms;
+
+// colors
+
+$background-0: rgb(22, 16, 16);
+$background-1: rgb(32, 32, 32);
+$background-link: rgb(64, 64, 64);
+
+$foreground-0: rgb(250, 250, 250);
+$foreground-1: rgb(200, 200, 200);
+$foreground-2: rgb(150, 150, 150);
+
+$highlight-1: rgb(200, 255, 200);
+$highlight-quote: rgb(200, 255, 200);
+$highlight-term: rgb(128, 64, 128);
+$highlight-alert: rgb(255, 200, 200);
+$highlight-rollable: rgb(200, 255, 200);
+
+$highlight-bg-link: rgb(64, 96, 64);
+$highlight-bg-rolled: rgb(64, 64, 64);
+
+// mixins
+
+@mixin contrasted {
+    display: inline-block;
+    font-family: $semimono-font, serif;
+    font-size: 11pt;
+    border-radius: 3pt;
+    border: none;
+    
+    padding: 2px;
+    margin-top: -2px;
+    margin-bottom: -2px;
+
+    background-color: $foreground-1;
+    color: $background-1;
+}
+
+@mixin default-spaced {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
