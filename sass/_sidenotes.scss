@@ -13,7 +13,7 @@
     display: reset;
     font-size: 10pt;
     vertical-align: super;
-    font-family: "Newsreader 8pt";
+    // font-family: "Newsreader 6pt";
 }
 
 .sidenote::before {
@@ -21,7 +21,7 @@
     position: absolute;
     left: -0.5rem;
     font-size: 10pt;
-    font-family: "Newsreader 8pt";
+    // font-family: "Newsreader 6pt";
     top: -3pt;
     z-index: 2;
 }

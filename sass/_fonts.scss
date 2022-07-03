@@ -1,6 +1,109 @@
 /* Fonts */
 
 @font-face {
+	font-family: 'Newsreader 16pt';
+	font-weight: 100;
+	font-style: normal;
+	src: url('/fonts/newsreader/woff2/Newsreader16pt-ExtraLight.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Newsreader 16pt';
+	font-weight: 200;
+	font-style: normal;
+	src: url('/fonts/newsreader/woff2/Newsreader16pt-Light.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Newsreader 16pt';
+	font-weight: 300;
+	font-style: normal;
+	src: url('/fonts/newsreader/woff2/Newsreader16pt-Regular.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Newsreader 16pt';
+	font-weight: 400;
+	font-style: normal;
+	src: url('/fonts/newsreader/woff2/Newsreader16pt-Medium.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Newsreader 16pt';
+	font-weight: 500;
+	font-style: normal;
+	src: url('/fonts/newsreader/woff2/Newsreader16pt-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Newsreader 16pt';
+	font-weight: 600;
+	font-style: normal;
+	src: url('/fonts/newsreader/woff2/Newsreader16pt-Bold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Newsreader 16pt';
+	font-weight: 700;
+	font-style: normal;
+	src: url('/fonts/newsreader/woff2/Newsreader16pt-ExtraBold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Newsreader 16pt';
+	font-weight: 100;
+	font-style: italic;
+	src: url('/fonts/newsreader/woff2/Newsreader16pt-ExtraLightItalic.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Newsreader 16pt';
+	font-weight: 200;
+	font-style: italic;
+	src: url('/fonts/newsreader/woff2/Newsreader16pt-LightItalic.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Newsreader 16pt';
+	font-weight: 300;
+	font-style: italic;
+	src: url('/fonts/newsreader/woff2/Newsreader16pt-Italic.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Newsreader 16pt';
+	font-weight: 400;
+	font-style: italic;
+	src: url('/fonts/newsreader/woff2/Newsreader16pt-MediumItalic.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Newsreader 16pt';
+	font-weight: 500;
+	font-style: italic;
+	src: url('/fonts/newsreader/woff2/Newsreader16pt-SemiBoldItalic.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Newsreader 16pt';
+	font-weight: 600;
+	font-style: italic;
+	src: url('/fonts/newsreader/woff2/Newsreader16pt-BoldItalic.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Newsreader 16pt';
+	font-weight: 700;
+	font-style: italic;
+	src: url('/fonts/newsreader/woff2/Newsreader16pt-ExtraBoldItalic.woff2') format('woff2');
+}
+
+
+
+
+
+
+@font-face {
 	font-family: 'Iosevka Web';
 	font-display: swap;
 	font-weight: 100;
