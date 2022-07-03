@@ -1,5 +1,6 @@
 image: alpine:latest
 
+# pages
 pages:
   script:
     - apk add --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ zola
