@@ -377,7 +377,7 @@ function rollToolbox() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function(_event) {
+function initToolbox() {
     toolboxLayout();
     if (localStorage.getItem('toolbox-state') === null) {
         let defaultState = {die: 20, number: 1};
@@ -388,7 +388,15 @@ document.addEventListener('DOMContentLoaded', function(_event) {
     }
     let label = document.getElementById("toolbox-roll-button");
     label.innerText = String(TOOLBOX_STATE.number) + "d" + String(TOOLBOX_STATE.die);
-})
+}
+
+if (document.readyState === "complete" || document.readyState === "loaded") {
+    initToolbox();
+} else {
+    document.addEventListener('DOMContentLoaded', function(_event) {
+        initToolbox();
+    })
+}
 
 window.addEventListener("resize", function (_event) {
     let element = document.getElementById("toolbox");
