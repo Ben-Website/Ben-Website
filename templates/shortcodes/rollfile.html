@@ -1,4 +1,6 @@
-{% set path = page.path ~ file %}
+{% set path_components = page.relative_path | split(pat="/") | slice(end=-1) %}
+{% set path = path_components | join(sep="/") %}
+{% set path = "@/" ~ path ~ "/" ~ file %}
 {% set data = load_data(path=path) %}
 {% set id = data.name | slugify %}
 {% set id = "rollfile-" ~ id ~ "-" ~ nth %}
