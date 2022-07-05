@@ -29,7 +29,7 @@
     {% if page.extra.style %}<link href="{{ page.path }}{{ page.extra.style }}" rel="stylesheet">{% endif %}
 </head>
 
-<body>
+<body onload="initToolbox()">
     <nav id='page-nav'>
         <div id='page-nav-inner'>
             <a href="/"> Home </a>

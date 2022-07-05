@@ -390,14 +390,6 @@ function initToolbox() {
     label.innerText = String(TOOLBOX_STATE.number) + "d" + String(TOOLBOX_STATE.die);
 }
 
-if (document.readyState === "complete" || document.readyState === "loaded") {
-    initToolbox();
-} else {
-    document.addEventListener('DOMContentLoaded', function(_event) {
-        initToolbox();
-    })
-}
-
 window.addEventListener("resize", function (_event) {
     let element = document.getElementById("toolbox");
     if (element.classList.contains("active")) {
