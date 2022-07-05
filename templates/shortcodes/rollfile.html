@@ -1,9 +1,10 @@
-{% set data = load_data(path=file) %}
+{% set path = page.path ~ file %}
+{% set data = load_data(path=path) %}
 {% set id = data.name | slugify %}
 {% set id = "rollfile-" ~ id ~ "-" ~ nth %}
 
 <div class="table-wrapper roll-table-wrapper" data-rollable="true" data-roll-kind="table" data-roll-name="{{ data.name }}" id="rollfile-{{ data.name | slugify }}-{{ nth }}" data-roll-die="{{ data.die }}" data-roll-number="1">
-    <div style="text-align: center;"><button class="rollme" onclick="roll('{{ id }}')">1d{{ data.die }}</button></div>
+    <div style="text-align: center;"><button class="rollme" title="Roll dice specification for the table '{{ data.name }}'." onclick="roll('{{ id }}')">1d{{ data.die }}</button></div>
     <table class="d{{ data.die }}">
         <thead>
             <tr>

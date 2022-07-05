@@ -151,19 +151,18 @@ const RADIUS = 70;
 const MARGIN = 15;
 
 
-let TOOLBOX_STATE = {
-    die: 20,
-    number: 1,
-};
+let TOOLBOX_STATE; // set in DOMContentLoaded event
 
 
 const diceOptions = {
     // creates an svg element used for rendering dice options
-    createDieSvg: function() {
+    createDieSvg: function(die) {
         let element = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         element.setAttribute("width", RADIUS + "px");
         element.setAttribute("height", RADIUS + "px");
         element.setAttribute('viewBox', "-75 -75 150 150");
+        element.setAttribute("role", "img");
+        element.setAttribute("aria-label", "A depiction of a " + String(die) + "-sided die.");
         element.classList.add("die");
 
         return element;
@@ -200,8 +199,8 @@ const diceOptions = {
         return diceOptions.textPair(x, y);
     },
 
-    createD4: function(roll) {
-        let element = diceOptions.createDieSvg();
+    createD4: function() {
+        let element = diceOptions.createDieSvg(4);
     
         element.innerHTML = diceOptions.circles() +
             "<polygon class='die-facet' points='" + diceOptions.regularPolygonPoints(3, 50, Math.PI / 6) + "' />" + 
@@ -210,8 +209,8 @@ const diceOptions = {
         return element;
     },
     
-    createD6: function(roll) {
-        let element = diceOptions.createDieSvg();
+    createD6: function() {
+        let element = diceOptions.createDieSvg(6);
     
         element.innerHTML = diceOptions.circles() +
             "<polygon class='die-facet' points='" + diceOptions.regularPolygonPoints(4, 50, Math.PI / 4) + "' />" + 
@@ -221,7 +220,7 @@ const diceOptions = {
     },
     
     createD8: function(roll) {
-        let element = diceOptions.createDieSvg();
+        let element = diceOptions.createDieSvg(8);
     
         let r = Math.tan(30 * Math.PI / 180) * 100;
     
@@ -238,8 +237,8 @@ const diceOptions = {
         return element;
     },
 
-    createD12: function(roll) {
-        let element = diceOptions.createDieSvg();
+    createD12: function() {
+        let element = diceOptions.createDieSvg(12);
     
         element.innerHTML = diceOptions.circles() +
             "<polygon class='die-facet' points='" + diceOptions.regularPolygonPoints(5, 50, Math.PI / 10) + "' />" + 
@@ -248,8 +247,8 @@ const diceOptions = {
         return element;
     },
     
-    createD20: function(roll) {
-        let element = diceOptions.createDieSvg();
+    createD20: function() {
+        let element = diceOptions.createDieSvg(20);
     
         element.innerHTML = diceOptions.circles() +
             "<polygon class='die-facet' points='" + diceOptions.regularPolygonPoints(3, 50, -Math.PI / 6) + "' />" + 
@@ -258,8 +257,8 @@ const diceOptions = {
         return element;
     },
     
-    createD10: function(ctx, roll) {
-        let element = diceOptions.createDieSvg();
+    createD10: function() {
+        let element = diceOptions.createDieSvg(10);
     
         element.innerHTML = diceOptions.circles() +
             "<polygon class='die-facet die-facet-10' points='" + 
@@ -273,8 +272,8 @@ const diceOptions = {
         return element;
     },
     
-    createD100: function(ctx, roll) {
-        let element = diceOptions.createDieSvg();
+    createD100: function() {
+        let element = diceOptions.createDieSvg(100);
     
         element.innerHTML = diceOptions.circles() +
             "<polygon class='die-facet die-facet-100' points='" + 
@@ -288,24 +287,24 @@ const diceOptions = {
         return element;
     },
     
-    createDie: function(die, roll) {
+    createDie: function(die) {
         switch (die) {
             case 4:
-                return diceOptions.createD4(roll);
+                return diceOptions.createD4();
             case 6:
-                return diceOptions.createD6(roll);
+                return diceOptions.createD6();
             case 8:
-                return diceOptions.createD8(roll);
+                return diceOptions.createD8();
             case 12:
-                return diceOptions.createD12(roll);
+                return diceOptions.createD12();
             case 20:
-                return diceOptions.createD20(roll);
+                return diceOptions.createD20();
             case 10:
-                return diceOptions.createD10(roll);
+                return diceOptions.createD10();
             case 100:
-                return diceOptions.createD100(roll);
+                return diceOptions.createD100();
             default:
-                console.log("Unknown die " + die);
+                throw "Unknown die number " + String(die);
         }
     }
 };
@@ -319,6 +318,7 @@ function setToolboxState(die) {
     } else {
         TOOLBOX_STATE["number"] += 1;
     }
+    localStorage.setItem('toolbox-state', JSON.stringify(TOOLBOX_STATE));
     
     let label = document.getElementById("toolbox-roll-button");
     label.innerText = String(TOOLBOX_STATE.number) + "d" + String(TOOLBOX_STATE.die);
@@ -328,14 +328,15 @@ function toolboxLayout() {
     let root = document.getElementById("toolbox-dice-options");
 
     // draw dice options
-    DICE_ORDER.forEach(function(die, index) {
-        let element = diceOptions.createDie(die, die);
-        element.addEventListener("click", function (ev) {
+    DICE_ORDER.forEach(function(die) {
+        let button = document.createElement("button");
+        button.classList.add("dice-wrap");
+        button.addEventListener("click", function (ev) {
             setToolboxState(die);
-            ev.preventDefault();
-            return false;
-        })
-        root.appendChild(element);
+        }, false);
+        let element = diceOptions.createDie(die);
+        button.appendChild(element);
+        root.appendChild(button);
     });
 }
 
@@ -375,3 +376,23 @@ function rollToolbox() {
         resultSum.innerText = rolls.reduce((l, r) => l + r);
     }
 }
+
+document.addEventListener('DOMContentLoaded', function(_event) {
+    toolboxLayout();
+    if (localStorage.getItem('toolbox-state') === null) {
+        let defaultState = {die: 20, number: 1};
+        localStorage.setItem('toolbox-state', JSON.stringify(defaultState));
+        TOOLBOX_STATE = defaultState;
+    } else {
+        TOOLBOX_STATE = JSON.parse(localStorage.getItem('toolbox-state'));
+    }
+    let label = document.getElementById("toolbox-roll-button");
+    label.innerText = String(TOOLBOX_STATE.number) + "d" + String(TOOLBOX_STATE.die);
+})
+
+window.addEventListener("resize", function (_event) {
+    let element = document.getElementById("toolbox");
+    if (element.classList.contains("active")) {
+        element.style.maxHeight = String(document.getElementById("toolbox-inner").clientHeight + element.clientHeight + 18) + "px";
+    }
+})

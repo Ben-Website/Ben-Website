@@ -7,7 +7,8 @@ date = 2022-06-03
 tags = ["Dice"]
 
 [extra]
-highlighted = true
+style = "extra.css"
+script = "extra.js"
 +++
 
 
@@ -31,8 +32,8 @@ Here, there's a single result per roll so we use the simplest form. It picks the
 
 If we want something more complex, then we use:
 
-{{ rollfile(file="@/blog/2022-06-03-third/complexroll.toml") }}
+{{ rollfile(file="complexroll.toml") }}
 
 Or:
 
-{{ rollfile(file="@/blog/2022-06-03-third/complexroll2.toml") }}
+{{ rollfile(file="complexroll2.toml") }}

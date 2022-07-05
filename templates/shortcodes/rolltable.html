@@ -2,7 +2,7 @@
 {% set id = "rolltable-" ~ id ~ "-" ~ nth %}
 
 <div class="table-wrapper roll-table-wrapper" data-rollable="true" data-roll-kind="table" data-roll-name="{{ name }}" id = "{{ id }}" data-roll-die="{{ results | length }}" data-roll-number="1">
-    <div style="text-align: center;"><button class="rollme" onclick="roll('{{ id }}')">1d{{ results | length }}</button></div>
+    <div style="text-align: center;"><button class="rollme" title="Roll dice specification for the table '{{ name }}'." onclick="roll('{{ id }}')">1d{{ results | length }}</button></div>
     <table class="d{{ results | length }}">
         <thead>
             <tr>

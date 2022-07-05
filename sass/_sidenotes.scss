@@ -1,7 +1,7 @@
 .sidenote {
     float: right;
     margin-right: -10em;
-    width: 9em;
+    width: 9rem;
     position: relative;
     display: block;
     color: $foreground-1;
@@ -10,7 +10,6 @@
 }
 
 .sidenote-anchor > span {
-    display: reset;
     font-size: 10pt;
     vertical-align: super;
     // font-family: "Newsreader 6pt";

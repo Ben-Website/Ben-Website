@@ -1,6 +1,6 @@
-div.table-wrapper {
+main > div.table-wrapper {
     max-width: 100%;
-    margin-right: 10rem;
+    margin-right: $sidenote-margin-right;
     position: relative;
 
     div {
@@ -20,7 +20,6 @@ table {
     margin: auto;
     border-spacing: 0;
     position: relative;
-    // border: 1px solid $foreground-2;
 
     th, td {
         padding-left: 1ex;

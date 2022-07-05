@@ -25,10 +25,11 @@
     <title>{% block title %}{% endblock %} | {{ config.title }}</title>
 
     <script type="text/javascript" async src="/everywhere.js"></script>
-
+    {% if page.extra.script %}<script type="text/javascript" async src="{{ page.path }}{{ page.extra.script }}"></script>{% endif %}
+    {% if page.extra.style %}<link href="{{ page.path }}{{ page.extra.style }}" rel="stylesheet">{% endif %}
 </head>
 
-<body onload="toolboxLayout()">
+<body>
     <nav id='page-nav'>
         <div id='page-nav-inner'>
             <a href="/"> Home </a>
@@ -40,7 +41,7 @@
         {% block content %} {% endblock %}
     </main>
     <footer id="footer">
-        <button onclick="toggleToolbox()" id="toggle-button">Tools</button>
+        <button onclick="toggleToolbox()" id="toggle-button" title="Show or hide the toolbox.">Tools</button>
         <div id="toolbox">
             <div id="toolbox-inner">
                 <div id="toolbox-dice-options"></div>

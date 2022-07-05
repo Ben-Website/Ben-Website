@@ -9,7 +9,7 @@
 
 :root {
     font-size: 14pt;
-    font-weight: 300;
+    font-weight: 400;
 
     hyphens: auto;
 
@@ -33,7 +33,7 @@ main {
     background-color: $background-0;
     color: $foreground-0;
 
-    width: calc(100% - 40px);
+    width: $main-width;
     max-width: 50rem;
     margin: auto;
     margin-bottom: 2rem;
@@ -42,6 +42,11 @@ main {
     margin-bottom: calc(300px + 3em);
 
     line-height: 1.25;
+
+    > p, > pre, > ol, > ul {
+        margin-right: $sidenote-margin-right;
+        @include default-spaced();
+    }
 
     a {
         font-family: $semimono-font, serif;
@@ -60,12 +65,7 @@ main {
     }
 }
 
-.term, dt {
-    @include contrasted();
-}
-
 p {
-    margin-right: 10rem;
     position: relative;
     text-align: justify;
     hyphens: auto;
@@ -81,7 +81,6 @@ code, pre {
 
 pre {
     overflow-x: scroll;
-    margin-right: 10rem;
     line-height: 1;
     height: auto;
     overflow-y: hidden;
@@ -103,8 +102,8 @@ ul, ol {
     }
 }
 
-main > ul, main > ol {
-    @include default-spaced();
+.term, dt {
+    @include contrasted();
 }
 
 ul {
@@ -152,35 +151,9 @@ ol {
     }
 }
 
-blockquote, div.admonition {
-    margin-left: -0.5em;
-    padding-left: 0.5em;
-
-    padding-top: 1ex;
-    padding-bottom: 1ex;
-
-    border-left: 1px solid $foreground-0;
-    border-radius: 3px;
-    position: relative;
-
-    width: 100%;
-
-    :first-child {
-        margin-top: 0;
-    }
-
-    :last-child {
-        margin-bottom: 0;
-    }
-
-    ul, ol {
-        padding-left: 2ex;
-    }
-
-    @include default-spaced();
-}
-
 blockquote {
+    @include blocklike();
+
     border-left-color: $highlight-quote;
 
     &::before {
@@ -192,15 +165,19 @@ blockquote {
     }
 }
 
-div.admonition.alert {
-    border-left-color: $highlight-alert;
+div.admonition {
+    @include blocklike();
 
-    &::before {
-        content: '!';
-        font-size: larger;
-        position: absolute;
-        top: -0.5em;
-        left: -0.7em;
+    &.alert {
+        border-left-color: $highlight-alert;
+    
+        &::before {
+            content: '!';
+            font-size: larger;
+            position: absolute;
+            top: -0.5em;
+            left: -0.7em;
+        }
     }
 }
 
