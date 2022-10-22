@@ -17,7 +17,6 @@ function rollDie(die) {
 // initiate a dice roll
 function roll(id) {
     let el = document.getElementById(id);
-    console.log(el.dataset);
 
     if (el.dataset.rollKind == "simple") {
         simpleRolling.roll(id, el);
@@ -36,8 +35,6 @@ const simpleRolling = {
         for (let i = 0; i < el.dataset.rollNumber; i++) {
             dice.push(rollDie(die));
         }
-
-        console.log(dice);
 
         let shouldDelay = false;
 
@@ -267,7 +264,7 @@ const diceOptions = {
             diceOptions.textPairPolar(Math.PI, 50) + "," + 
             diceOptions.textPairPolar(-Math.PI/3, 50) + "," + 
             "' />" + 
-            "<text x='0' y='0'>&nbsp;10</text>";
+            "<text x='6' y='0'>10</text>";
     
         return element;
     },
@@ -282,7 +279,7 @@ const diceOptions = {
             diceOptions.textPairPolar(Math.PI, 50) + "," + 
             diceOptions.textPairPolar(-2*Math.PI/3, 50) + "," + 
             "' />" + 
-            "<text x='0' y='0'>100&nbsp;&nbsp;</text>";
+            "<text x='-13' y='0'>100</text>";
     
         return element;
     },
@@ -378,7 +375,6 @@ function rollToolbox() {
 }
 
 function initToolbox() {
-    toolboxLayout();
     if (localStorage.getItem('toolbox-state') === null) {
         let defaultState = {die: 20, number: 1};
         localStorage.setItem('toolbox-state', JSON.stringify(defaultState));
@@ -388,6 +384,7 @@ function initToolbox() {
     }
     let label = document.getElementById("toolbox-roll-button");
     label.innerText = String(TOOLBOX_STATE.number) + "d" + String(TOOLBOX_STATE.die);
+    setTimeout(toolboxLayout(), 0);
 }
 
 window.addEventListener("resize", function (_event) {
@@ -396,3 +393,157 @@ window.addEventListener("resize", function (_event) {
         element.style.maxHeight = String(document.getElementById("toolbox-inner").clientHeight + element.clientHeight + 18) + "px";
     }
 })
+
+
+function binomial(n, k) {
+    if (k > n) {
+        return BigInt(0);
+    }
+
+    let n_local = BigInt(n);
+
+    let r = BigInt(1);
+    
+    for (let d = 1n; d <= BigInt(k); d++) {
+        r *= n_local--;
+        r /= d;
+    }
+
+    return r;
+}
+
+
+function polynomial(die, number, coeff) {
+    let n = BigInt(number);
+    let m = BigInt(die) - 1n;
+    let k = BigInt(coeff);
+
+    let sum = 0n;
+    let sign = 1n;
+
+    for (let s = 0n; s <= (k / (m + 1n)); s++) {
+        sum += sign * binomial(k - (s * (m + 1n)) + n - 1n, n - 1n) * binomial(n, s);
+        sign *= -1n;
+    }
+
+    return sum;
+}
+
+
+function distribution(die, number, rollFunction) {
+    let bign = BigInt(number);
+    let bigd = BigInt(die);
+    let distribution;
+    switch (rollFunction) {
+        case "sum":
+        case "add":
+            distribution = [];
+            for (let k = 0; k < number; k++) {
+                distribution.push(0n);
+            }
+            let halfway = (bigd * bign + 1n) / 2n;
+            for (let k = 0; k < halfway; k++) {
+                let res = polynomial(die, number, k);
+                distribution.push(res);
+            }
+            let start_i = (bigd * bign) - (halfway + 1n)
+            for (let k = 1n; k <= (bigd * bign) - start_i - bign; k++) {
+                distribution.push(distribution[halfway - k + 1n]);
+            }
+            break;
+        case "max":
+            distribution = [0n];
+            for (let k = 0n; k < BigInt(die); k++) {
+                distribution.push(((k + 1n) ** bign) - (k ** bign));
+            }
+            break;
+        case "min":
+            distribution = [0n];
+            for (let k = BigInt(die); k > 0n; k--) {
+                distribution.push((k ** bign) - ((k - 1n) ** bign));
+            }
+            break;
+        default:
+            console.log("Can't find distribution of ", rollFunction);
+            break;
+    }
+
+    return distribution;
+}
+
+
+function clickDistribution(rollFunction) {
+    let dist = distribution(TOOLBOX_STATE.die, TOOLBOX_STATE.number, rollFunction);
+    console.log(dist);
+    let norm = dist.reduce((l, r) => l + r);
+
+    let bg = document.createElement('div');
+    bg.id = "popup";
+    bg.classList.add("behindpopup");
+    bg.addEventListener("click", (_e) => closePopup());
+
+    let pop = document.createElement("div");
+    pop.classList.add("popup");
+    pop.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }, {
+        capture: true,
+    });
+
+    let table = document.createElement("table");
+    table.innerHTML = "<thead><tr><th>Roll</th><th>Probability</th><th>Percent</th></tr></thead>";
+
+    let tbody = document.createElement("tbody");
+
+    for (let i = 1; i < dist.length; i++) {
+        let row = document.createElement("tr");
+        let roll = document.createElement("td");
+        roll.innerText = String(i);
+        row.appendChild(roll);
+
+        let prob = document.createElement("td");
+        prob.innerText = String(dist[i]) + " / " + String(norm);
+        row.appendChild(prob);
+
+        let probp = document.createElement("td");
+        let percent = Number(dist[i] * 10000000000000000000000n / norm) / 100000000000000000000;
+        
+        let formatted;
+        if (percent == 0) {
+            if (dist[i] != 0n) {
+                formatted = "~0%";
+            } else {
+                formatted = "0%";
+            }
+        } else if (percent >= 1) {
+            formatted = percent.toFixed(2) + "%";
+        } else if (percent >= 0.01) {
+            formatted = percent.toPrecision(3) + "%";
+        } else {
+            formatted = percent.toExponential(3);
+            let idx = formatted.indexOf("e");
+            let low = formatted.substring(0, idx);
+            let pow = formatted.substring(idx + 1);
+            formatted = low + "⋅10<sup>" + pow + "</sup> %";
+        }
+
+        probp.innerHTML = formatted;
+        row.appendChild(probp);
+
+        tbody.appendChild(row);
+    }
+
+    table.appendChild(tbody);
+    pop.appendChild(table);
+    bg.appendChild(pop);
+
+    document.body.appendChild(bg);
+}
+
+
+function closePopup() {
+    let popup = document.getElementById("popup");
+    document.body.removeChild(popup);
+}

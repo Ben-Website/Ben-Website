@@ -32,7 +32,7 @@
 <body onload="initToolbox()">
     <nav id='page-nav'>
         <div id='page-nav-inner'>
-            <a href="/"> Home </a>
+            <a href="/" class="link-home"> {{ config.title }} </a>
             <span class="stretch">&nbsp;</span>
             <a href="/blog"> Blog </a>
         </div>
@@ -48,9 +48,9 @@
                 <button id="toolbox-roll-button" onclick="rollToolbox()">1d20</button>
                 <table id="toolbox-roll-results">
                     <tr> <td>roll:</td> <td id="toolbox-result"> </td> </tr>
-                    <tr> <td>min:</td>  <td id="toolbox-result-min"> </td> </tr>
-                    <tr> <td>max:</td>  <td id="toolbox-result-max"> </td> </tr>
-                    <tr> <td>sum:</td>  <td id="toolbox-result-sum"> </td> </tr>
+                    <tr> <td class="distribution" onclick="clickDistribution('min')">min:</td>  <td id="toolbox-result-min"> </td> </tr>
+                    <tr> <td class="distribution" onclick="clickDistribution('max')">max:</td>  <td id="toolbox-result-max"> </td> </tr>
+                    <tr> <td class="distribution" onclick="clickDistribution('sum')">sum:</td>  <td id="toolbox-result-sum"> </td> </tr>
                 </table>
             </div>
         </div>

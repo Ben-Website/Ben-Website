@@ -1,11 +1,12 @@
 name = "Complex"
-die = 6
-resultname = "Do"
+die = 8
+resultname = "Then"
+onname = "When"
 
 results = [
     { on = 1, result = "Brief description" },
     { on = 2, result = "Another description" },
     { on = 3, result = "Third description" },
     { on = 4, result = "Nothing, actually" },
-    { on = { start = 5, end = 6 }, result = "Multiple cases" },
+    { on = { start = 5, end = 8 }, result = "Multiple cases" },
 ]
