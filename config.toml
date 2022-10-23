@@ -1,5 +1,5 @@
 # The URL the site will be built for
-base_url = "https://ben-website.gitlab.io"
+base_url = "https://ben-website.github.io/ben-website/"
 
 title = "Site Title Here"
 
