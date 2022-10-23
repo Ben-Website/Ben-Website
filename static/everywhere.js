@@ -385,6 +385,7 @@ function initToolbox() {
     let label = document.getElementById("toolbox-roll-button");
     label.innerText = String(TOOLBOX_STATE.number) + "d" + String(TOOLBOX_STATE.die);
     setTimeout(toolboxLayout(), 0);
+    console.log("Website design by Mia Kramer.\nTrans rights are human rights!")
 }
 
 window.addEventListener("resize", function (_event) {
@@ -508,7 +509,7 @@ function clickDistribution(rollFunction) {
         row.appendChild(prob);
 
         let probp = document.createElement("td");
-        let percent = Number(dist[i] * 10000000000000000000000n / norm) / 100000000000000000000;
+        let percent = Number(dist[i] * 100000000000000000000n / norm) / 1000000000000000000;
         
         let formatted;
         if (percent == 0) {
