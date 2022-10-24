@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+Allow: /
+Sitemap: https://ben-website.github.io/ben-website/sitemap.xml
